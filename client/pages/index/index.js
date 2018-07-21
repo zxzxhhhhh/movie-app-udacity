@@ -27,18 +27,18 @@ Page({
           })
         }
         else {
-          setTimeout(() => {
-            wx.navigateBack(),
-              2000
+          wx.showToast({
+            icon: 'none',
+            title: '加载失败',
           })
         }
 
       },
       fail: result => {
         wx.hideLoading()
-        setTimeout(() => {
-          wx.navigateBack(),
-            2000
+        wx.showToast({
+          icon: 'none',
+          title: '加载失败',
         })
         console.log('error!' + result);
       }

@@ -24,7 +24,10 @@ var config = {
         uploadUrl: `${host}/weapp/upload`,
 
         // 获取电影接口
-        movieDetail: `${host}/weapp/movie/`
+        movieDetail: `${host}/weapp/movie/`,
+
+        // 获取电影接口
+        movieList: `${host}/weapp/movie/`
     }
 };
 

@@ -35,4 +35,7 @@ router.post('/message', controllers.message.post)
 //获取电影
 router.get('/movie/:id', controllers.movie.detail)
 
+//获取电影
+router.get('/movie', controllers.movie.list)
+
 module.exports = router
