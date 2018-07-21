@@ -1,9 +1,9 @@
 <!--pages/hots/hots.wxml-->
 
-<view class='movie-card' wx:for='{{movieList}}' wx:key='*this'>
+<navigator class='movie-card' wx:for='{{movieList}}' wx:key='*this' url='../movie-detail/movie-detail?id={{item.id}}'>
   <image class='image' src='{{item.image}}' mode='aspectFit'></image>
   <view class='movie-info'>
     <view class='title'>{{item.title}}</view>
     <view class='category'>类型：{{item.category}}</view>
   </view>
-</view>
+</navigator>

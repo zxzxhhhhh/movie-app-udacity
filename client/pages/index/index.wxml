@@ -1,5 +1,8 @@
 
-<image class='image' src='{{movie.image}}' mode='aspectFit'></image>
+<navigator url='../movie-detail/movie-detail?id={{movie.id}}'>
+ <image class='image' src='{{movie.image}}' mode='aspectFit'></image>
+</navigator>
+
 
 <view class='title'>{{movie.title}}</view>
 

@@ -1,2 +1,21 @@
 <!--pages/movie-detail/movie-detail.wxml-->
-<text>pages/movie-detail/movie-detail.wxml</text>
+
+<image class='image' src='{{movie.image}}'></image>
+
+<view class='movie-info'>
+  <view class='title'>{{movie.title}}</view>
+  <scroll-view class='description-wrap'  scroll-y scroll-with-animation enable-back-to-top>
+    <view class='description'>{{movie.description}}</view>
+  </scroll-view>
+
+  <view class='btn-bottom'>
+    <view class='btn-meta'>
+      <image class='btn-image' src='../../images/eye.png'></image>
+      <view class='btn-text'>查看影评</view>
+    </view>
+    <view class='btn-meta'>
+      <image class='btn-image' src='../../images/comment.png'></image>
+      <view class='btn-text'>添加影评</view>
+    </view>
+  </view>
+</view>
