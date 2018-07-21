@@ -7,12 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    movie:{
-      image: 'https://movies-1256105992.cos.ap-shanghai.myqcloud.com/p2517753454.jpg',
-      title: '复仇者联盟3：无限战争',
-      comment_avatar: '../../images/user.png',
-      comment_user:'小J'
-    }
+    movie:{}
   },
 
   /**
@@ -54,7 +49,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMovie(2)
+    this.getMovie(Math.floor((Math.random() * 15) + 1))
   },
 
   /**
