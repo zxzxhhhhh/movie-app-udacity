@@ -1,0 +1,20 @@
+
+<image class='image' src='{{movie.image}}' mode='aspectFit'></image>
+
+<view class='title'>{{movie.title}}</view>
+
+<view class='comment'>
+  <image class='avatar' src='{{movie.comment_avatar}}'></image>
+  <view class='comment-text'>{{movie.comment_user}}给你推荐了一部电影</view>
+</view>
+
+<view class='bottom-bar'>
+  <navigator class='btn-meta' url='../hots/hots'>
+    <image class='meta-image' src='../../images/hot.png'></image>
+    <view class='meta-text'>热门</view>
+  </navigator>
+  <navigator class='btn-meta' url='../user/user'>
+    <image class='meta-image' src='../../images/user.png'></image>
+    <view class='meta-text'>我的</view>
+  </navigator>
+</view>
