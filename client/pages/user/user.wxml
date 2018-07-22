@@ -1,2 +1,13 @@
 <!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<view wx:if='{{!userInfo}}'>
+  <view class='user-card'>
+      <view class='login-status'>未登录</view>
+      <view class='login-info'>请点击登录按钮，登录后查看收藏信息。</view>
+  </view>
+  <button wx:if="{{locationAuthType==0}}" class="unlogin-btn" open-type='getUserInfo' bindgetuserinfo='onTapLogin'>微信登录</button>
+  <button wx:if="{{locationAuthType==1}}" class="unlogin-btn" open-type='openSetting' bindopensetting="onTapLogin">授权登录</button>
+</view>
+
+<view wx:if='{{userInfo}}'>
+  <view class='title'>收藏的影评</view>
+</view>

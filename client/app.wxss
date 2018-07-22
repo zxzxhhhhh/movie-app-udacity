@@ -5,3 +5,30 @@
   align-items: center;
   box-sizing: border-box;
 } 
+
+
+.user-card{
+  margin: 50rpx 30rpx;
+  padding: 50rpx;
+  background-color: white;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.02);
+  border-radius: 13rpx;
+}
+.login-status{
+  font-size: 40rpx;
+  line-height: 56rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+.login-info{
+  font-size: 30rpx;
+  line-height: 42rpx;
+  opacity: 0.6;
+}
+.unlogin-btn{
+  width: 250rpx;
+  font-size: 35rpx;
+  line-height: 80rpx;
+  background-color: #F5E069;
+  font-weight: bold;
+}
