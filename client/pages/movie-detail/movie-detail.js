@@ -50,7 +50,6 @@ Page({
   onLoad: function (options) {
     let movieID = options.id
     this.getMovie(movieID)
-    console.log('111'+movieID)
   },
 
   /**

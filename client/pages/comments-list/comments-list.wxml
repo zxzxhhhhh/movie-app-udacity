@@ -1,2 +1,17 @@
 <!--pages/comments-list/comments-list.wxml-->
-<text>pages/comments-list/comments-list.wxml</text>
+<navigator class='comment-card' wx:for='{{commentList}}' wx:key='*this' url='../comment-detail/comment-detail?id={{item.id}}'>
+  
+  <view class='user-info'>
+    <image class='avatar' src='{{item.avatar}}' mode='aspectFit'></image>
+    <view class='username'>{{item.username}}</view>
+  </view>
+  <view class='content' wx:if='{{item.content}}'>{{item.content}}</view>
+  <view class='voices' wx:if='{{item.voices}}' catchtap='onTapPlay' data-id='{{item.id}}'>
+    <view class='play-status' wx:if='{{playStatus==0}}'>▶</view>
+    <view class='play-status' wx:if='{{playStatus==1}}'>■</view>
+    <view class='audio-length'>{{audioLength}}s</view>
+  </view>
+</navigator>
+
+
+<audio  src="{{src}}" id="myAudio" ></audio>
