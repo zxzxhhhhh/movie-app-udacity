@@ -1,2 +1,26 @@
 <!--pages/comment-edit/comment-edit.wxml-->
-<text>pages/comment-edit/comment-edit.wxml</text>
+
+
+<view wx:if='{{!userInfo}}'>
+  <view class='user-card'>
+      <view class='login-status'>未登录</view>
+      <view class='login-info'>请点击登录按钮，登录后查看收藏信息。</view>
+  </view>
+  <button wx:if="{{locationAuthType==0}}" class="unlogin-btn" open-type='getUserInfo' bindgetuserinfo='onTapLogin'>微信登录</button>
+  <button wx:if="{{locationAuthType==1}}" class="unlogin-btn" open-type='openSetting' bindopensetting="onTapLogin">授权登录</button>
+</view>
+
+<view wx:if='{{userInfo}}'>
+  <image class='image' src='{{movie.image}}'></image>
+  <view class='movie-info'>
+    <view class='title'>{{movie.title}}</view>
+    <textarea class='comment-ipt' placeholder-class='comment-placeholder' placeholder='输入你的影评内容...' auto-focus maxlength='255' bindinput='onInput'></textarea>
+    <view class='btn-meta'>
+      <image class='btn-image' src='../../images/record.png'></image>
+      <view class='btn-text'>录音</view>
+    </view>
+
+  </view>
+
+  <view class='btn-bottom'>完成</view>
+</view>

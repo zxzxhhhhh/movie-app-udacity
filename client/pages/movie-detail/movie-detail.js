@@ -9,13 +9,15 @@ Page({
   data: {
     movie: {}
   },
+  // 底部弹出按钮菜单
   showActionSheet(){
+    let movieID = this.data.movie.id
     wx.showActionSheet({
       itemList: ['文字', '音频'],
       success: function (res) {
         console.log("Comment Type is: " + res.tapIndex)
         wx.navigateTo({
-          url: `../comment-edit/comment-edit?type=${res.tapIndex}`,
+          url: `../comment-edit/comment-edit?type=${res.tapIndex}&movieID=${movieID}`,
         })
       },
       fail: function (res) {
@@ -24,7 +26,7 @@ Page({
     })
   },
   /**
-   * 随即获取一个电影数据 已知总数为15个
+   * 获取电影数据
    */
   getMovie(movieID) {
     wx.showLoading({
@@ -56,7 +58,6 @@ Page({
         console.log('error!' + result);
       }
     });
-
   },
   /**
    * 生命周期函数--监听页面加载
