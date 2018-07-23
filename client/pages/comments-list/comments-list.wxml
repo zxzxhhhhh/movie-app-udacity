@@ -13,5 +13,4 @@
   </view>
 </navigator>
 
-
-<audio  src="{{src}}" id="myAudio" ></audio>
+<navigator class='btn-bottom' url='../index/index'>回到首页</navigator>

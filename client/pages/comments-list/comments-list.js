@@ -32,39 +32,50 @@ Page({
   onLoad: function (options) {
     let movieID = options.id
     console.log(movieID)
-
-
+    // 这里为什么放到函数onTapPlay中是不行的（if中可以调用，else中不行）
+    this.innerAudioContext = wx.createInnerAudioContext()
   },
 
   onTapPlay(event){
-    console.log('play')
     let commentID = event.currentTarget.dataset.id
-
     let commentList = this.data.commentList
     let comment
+
+    //遍历找到该条评论 定位其声音链接
     for (let i = 0; i < commentList.length; i++){
       if(commentList[i].id == commentID)
       {
         comment = commentList[i]
         break
       }
+
+      
+      
     }
-    const innerAudioContext = wx.createInnerAudioContext()
-    innerAudioContext.src = comment.voices
-    if (this.data.playStatus == 0)//没有播放
-    {
-      console.log('playing')
-      innerAudioContext.play()
-      this.setData({
-        playStatus: PLAY
-      })
-    }else{
-      console.log('stop playing')
-      innerAudioContext.pause()
-      this.setData({
-        playStatus: STOP
-      })
+    
+    if (comment.voices){
+      this.innerAudioContext.src = comment.voices
+
+      if (this.data.playStatus == 0)//没有播放
+      {
+        this.innerAudioContext.play()
+        this.innerAudioContext.onPlay(() => {
+          console.log("播放");
+          this.setData({
+            playStatus: PLAY
+          })
+        })
+      } else {
+        this.innerAudioContext.stop();
+        this.innerAudioContext.onStop(() => {
+          console.log("停止");
+          this.setData({
+            playStatus: STOP
+          })
+        })
+      }
     }
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -77,21 +88,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    console.log("on show")
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    this.innerAudioContext.stop();
+    console.log("onUnload: Stop Playing!")
   },
 
   /**
