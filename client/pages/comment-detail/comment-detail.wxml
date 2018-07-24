@@ -1,2 +1,33 @@
 <!--pages/comment-detail/comment-detail.wxml-->
-<text>pages/comment-detail/comment-detail.wxml</text>
+<image class='image' src='{{movie.image}}'></image>
+
+<view class='movie-info'>
+  <view class='title'>{{movie.title}}</view>
+
+
+  <view class='comment-card'>
+    <view class='user-info'>
+      <image class='avatar' src='{{comment.avatar}}'></image>
+      <view class='username'>{{comment.username}}</view>
+    </view>
+    <view class='comment-info'>
+      <view class='comment-symbol'>"</view>
+      <scroll-view class='description-wrap'  scroll-y scroll-with-animation enable-back-to-top>
+        <view class='description'>{{comment.content}}</view>
+      </scroll-view>
+    </view>
+  </view>
+
+
+  <view class='btn-bottom'>
+    <view class='btn-meta' bindtap='onTapFavor'>
+      <image class='btn-image' src='../../images/favor.png'></image>
+      <view class='btn-text'>收藏影评</view>
+    </view>
+    <view class='btn-meta' bindtap='onTapAddComment'>
+      <image class='btn-image' src='../../images/write.png'></image>
+      <view class='btn-text'>写影评</view>
+    </view>
+  </view>
+</view>
+

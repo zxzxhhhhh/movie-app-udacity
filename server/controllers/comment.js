@@ -32,6 +32,14 @@ module.exports = {
     } else {
       ctx.state.data = {}
     }
+  },
+  comment: async ctx =>{
+    let commentID = +ctx.request.query.comment_id
+    if (!isNaN(commentID)) {
+      ctx.state.data = (await DB.query('SELECT * FROM comment_movie where comment_movie.id = ?', [commentID]))[0]
+    } else {
+      ctx.state.data = {}
+    }
   }
 
 }

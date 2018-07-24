@@ -34,6 +34,9 @@ var config = {
 
         //下载评论
         comment: `${host}/weapp/comment`,
+        
+        //下载特定评论展示详情
+        commentDetail: `${host}/weapp/comment-detail`
     }
 };
 
