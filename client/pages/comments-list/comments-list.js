@@ -21,14 +21,13 @@ Page({
     })
     qcloud.request({
       url: config.service.comment,
-      login: true,
       method: 'GET',
       data: {
         movie_id: id
       },
       success: (result) => {
         wx.hideLoading()
-        console.log(result)
+        //console.log(result)
         if (!result.data.code) {
 
           this.setData({
