@@ -47,4 +47,7 @@ router.get('/comment', validationMiddleware, controllers.comment.list)
 // 获取特定商品评价详情
 router.get('/comment-detail', validationMiddleware, controllers.comment.comment)
 
+// 上传收藏评价
+router.put('/favor', validationMiddleware, controllers.favor.add)
+
 module.exports = router

@@ -1,33 +1,54 @@
 <!--pages/comment-detail/comment-detail.wxml-->
-<image class='image' src='{{movie.image}}'></image>
+<!-- 不需要用户登录信息-->
+<view wx:if='{{!needUserInfo}}'>
+  <image class='image' src='{{movie.image}}'></image>
 
-<view class='movie-info'>
-  <view class='title'>{{movie.title}}</view>
+  <view class='movie-info'>
+    <view class='title'>{{movie.title}}</view>
 
 
-  <view class='comment-card'>
-    <view class='user-info'>
-      <image class='avatar' src='{{comment.avatar}}'></image>
-      <view class='username'>{{comment.username}}</view>
+    <view class='comment-card'>
+      <view class='user-info'>
+        <image class='avatar' src='{{comment.avatar}}'></image>
+        <view class='username'>{{comment.username}}</view>
+      </view>
+      <view class='comment-info'>
+        <view class='comment-symbol'>"</view>
+        <scroll-view class='description-wrap'  scroll-y scroll-with-animation enable-back-to-top>
+          <view class='description'>{{comment.content}}</view>
+        </scroll-view>
+      </view>
     </view>
-    <view class='comment-info'>
-      <view class='comment-symbol'>"</view>
-      <scroll-view class='description-wrap'  scroll-y scroll-with-animation enable-back-to-top>
-        <view class='description'>{{comment.content}}</view>
-      </scroll-view>
+
+
+    <view class='btn-bottom'>
+      <view class='btn-meta' bindtap='onTapAddFavor'>
+        <image class='btn-image' src='../../images/favor.png'></image>
+        <view class='btn-text'>收藏影评</view>
+      </view>
+      <view class='btn-meta' bindtap='showActionSheet'>
+        <image class='btn-image' src='../../images/write.png'></image>
+        <view class='btn-text'>写影评</view>
+      </view>
     </view>
   </view>
 
-
-  <view class='btn-bottom'>
-    <view class='btn-meta' bindtap='onTapFavor'>
-      <image class='btn-image' src='../../images/favor.png'></image>
-      <view class='btn-text'>收藏影评</view>
-    </view>
-    <view class='btn-meta' bindtap='onTapAddComment'>
-      <image class='btn-image' src='../../images/write.png'></image>
-      <view class='btn-text'>写影评</view>
-    </view>
-  </view>
 </view>
 
+<!-- 点击底部按钮: 需要用户登录信息-->
+<view wx:if='{{needUserInfo}}'>
+  <!--没有用户登录信息-->
+  <view wx:if='{{!userInfo}}'>
+    <view class='user-card'>
+        <view class='login-status'>未登录</view>
+        <view class='login-info'>请点击登录按钮，登录后查看收藏信息。</view>
+    </view>
+    <button wx:if="{{locationAuthType==0}}" class="unlogin-btn" open-type='getUserInfo' bindgetuserinfo='onTapLogin'>微信登录</button>
+    <button wx:if="{{locationAuthType==1}}" class="unlogin-btn" open-type='openSetting' bindopensetting="onTapLogin">授权登录</button>
+  </view>
+  
+  <!--有用户登录信息-->
+  <view wx:if='{{userInfo}}'>
+    <view>have userInfo</view>
+  </view>
+</view>
