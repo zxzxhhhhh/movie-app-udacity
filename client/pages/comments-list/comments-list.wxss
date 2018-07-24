@@ -43,7 +43,6 @@ Page{
   height: 50rpx;
   background: lightgray;
   margin-left:30rpx;
-  margin-top: 20rpx;
 
   display: flex;
   align-items: center;
