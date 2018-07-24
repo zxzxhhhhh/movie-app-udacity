@@ -40,6 +40,7 @@ Page({
         }
         else {
           wx.showToast({
+            icon: 'none',
             title: '加载失败',
           })
         }
@@ -48,9 +49,10 @@ Page({
       fail: result => {
         wx.hideLoading()
         wx.showToast({
+          icon: 'none',
           title: '加载失败',
         })
-        console.log('error!');
+        console.log('error!' + result);
       }
     });
   },
