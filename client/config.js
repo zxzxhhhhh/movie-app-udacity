@@ -27,7 +27,13 @@ var config = {
         movieDetail: `${host}/weapp/movie/`,
 
         // 获取电影接口
-        movieList: `${host}/weapp/movie/`
+        movieList: `${host}/weapp/movie/`,
+
+        // 上传评论
+        addComment: `${host}/weapp/comment`,
+
+        //下载评论
+        comment: `${host}/weapp/comment`,
     }
 };
 

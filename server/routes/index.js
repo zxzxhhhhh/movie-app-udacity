@@ -38,4 +38,10 @@ router.get('/movie/:id', controllers.movie.detail)
 //获取电影
 router.get('/movie', controllers.movie.list)
 
+// 上传商品评价
+router.put('/comment', validationMiddleware, controllers.comment.add)
+
+// 获取商品评价
+router.get('/comment', validationMiddleware, controllers.comment.list)
+
 module.exports = router
