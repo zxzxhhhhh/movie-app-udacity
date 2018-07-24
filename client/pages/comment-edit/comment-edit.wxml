@@ -14,13 +14,15 @@
   <image class='image' src='{{movie.image}}'></image>
   <view class='movie-info'>
     <view class='title'>{{movie.title}}</view>
-    <textarea class='comment-ipt' placeholder-class='comment-placeholder' placeholder='输入你的影评内容...' auto-focus maxlength='255' bindinput='onInput'></textarea>
-    <view class='btn-meta'>
+
+    <textarea class='comment-ipt' placeholder-class='comment-placeholder' placeholder='输入你的影评内容...' auto-focus maxlength='255' bindinput='onInput' wx:if='{{commentType==0}}'></textarea>
+
+    <view class='btn-meta' wx:if='{{commentType==1}}'>
       <image class='btn-image' src='../../images/record.png'></image>
       <view class='btn-text'>录音</view>
     </view>
 
   </view>
 
-  <view class='btn-bottom'>完成</view>
+  <navigator class='btn-bottom' url="../comment-preview/comment-preview?movie_id={{movie.id}}&movie_image={{movie.image}}&movie_title={{movie.title}}&commentText={{commentText}}&user_avatar={{userInfo.avatarUrl}}&username={{userInfo.nickName}}">完成</navigator>
 </view>

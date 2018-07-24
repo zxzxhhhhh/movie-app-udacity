@@ -11,9 +11,23 @@ Page({
   data: {
     userInfo: null,
     locationAuthType: app.data.locationAuthType,
-    movie:{}
+    movie:{},
+    commentType: 0,
+    commentText:'',
+    commentVoice:''
   },
 
+  /***输入的文字评论 */
+  onInput(event) {
+    this.setData({
+      commentText: event.detail.value.trim()
+    })
+  },
+  /** 上传评论信息 */
+  addComment() {
+
+
+  },
   /**
    * 获取电影数据
    */
@@ -48,6 +62,7 @@ Page({
       }
     });
   },
+
   onTapLogin(res) {
     app.login({
       success: ({ userInfo }) => {
@@ -70,6 +85,10 @@ Page({
    */
   onLoad: function (options) {
     let commentType = options.type
+    this.setData({
+      commentType
+    })
+
     let movieID = options.movieID
     this.getMovie(movieID)
   },
