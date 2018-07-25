@@ -23,11 +23,12 @@ Page{
   align-items: center;
 }
 .avatar{
-  width: 80rpx;
-  height: 80rpx;
+  width: 60rpx;
+  height: 60rpx;
   border-radius: 50%;
 }
 .comment-text{
+  margin-left: 20rpx;
   font-size: 30rpx;
   line-height: 42rpx;
 }

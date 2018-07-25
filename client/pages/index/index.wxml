@@ -6,10 +6,10 @@
 
 <view class='title'>{{movie.title}}</view>
 
-<view class='comment'>
-  <image class='avatar' src='{{movie.comment_avatar}}'></image>
-  <view class='comment-text'>{{movie.comment_user}}给你推荐了一部电影</view>
-</view>
+<navigator class='comment' wx:if='{{comment}}' url='../comment-detail/comment-detail?id={{comment.id}}'>
+  <image class='avatar' src='{{comment.avatar}}'></image>
+  <view class='comment-text'>{{comment.username}} 给你推荐了一部电影</view>
+</navigator>
 
 <view class='bottom-bar'>
   <navigator class='btn-meta' url='../hots/hots'>

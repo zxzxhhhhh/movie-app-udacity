@@ -7,9 +7,55 @@ Page({
    * 页面的初始数据
    */
   data: {
-    movie:{}
+    movie:{},
+    comment:{}
   },
+  //获取评论详情
+  getCommentList(id) {
+    wx.showLoading({
+      title: '评论数据加载中',
+    })
+    qcloud.request({
+      url: config.service.comment,
+      method: 'GET',
+      data: {
+        movie_id: id
+      },
+      success: (result) => {
+        wx.hideLoading()
+        if (!result.data.code) {
+          let commentList = result.data.data
+          if (commentList.length){
+            // console.log("comment:" + commentList.length)
+            this.setData({
+              comment: commentList[Math.floor((Math.random() * commentList.length))]
+            })
+          }else{
+            // console.log("no comment")
+            this.setData({
+              comment: null
+            })
+          }
 
+        }
+        else {
+          wx.showToast({
+            icon: 'none',
+            title: '加载失败',
+          })
+        }
+
+      },
+      fail: result => {
+        wx.hideLoading()
+        wx.showToast({
+          icon: 'none',
+          title: '加载失败',
+        })
+        console.log('error!' + result);
+      }
+    });
+  },
   /**
    * 随即获取一个电影数据 已知总数为15个
    */
@@ -25,6 +71,7 @@ Page({
           this.setData({
             movie: result.data.data
           })
+          this.getCommentList(this.data.movie.id)
         }
         else {
           wx.showToast({
