@@ -3,9 +3,12 @@
 const app = getApp()
 const config = require('../../config.js')
 const qcloud = require('../../vendor/wafer2-client-sdk/index.js');
-
+//oprBtnType: 确定未登录时跳转到登录界面登陆后的跳转逻辑
+//收藏按钮 跳转回原页面；写影评按钮 跳转到编辑影评页面
+const UNDEFINED = 0;
+const ADD_FAVOR = 1;
+const WRITE_COMMENT = 2;
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -13,6 +16,7 @@ Page({
     comment:{},
     movie: {},
     needUserInfo: false,
+    oprBtnType: UNDEFINED,
     userInfo: null,
     locationAuthType: app.data.locationAuthType
   },
@@ -24,10 +28,16 @@ Page({
           userInfo,
           locationAuthType: app.data.locationAuthType
         })
-        console.log('Page USER: lOGIN SUCCESS!')
+        console.log('Page COMMENT-DETAIL: lOGIN SUCCESS!')
+        if (this.data.oprBtnType == ADD_FAVOR){
+          console.log("Operation Add Favor")
+          this.onTapAddFavor()
+        } else if (this.data.oprBtnType == WRITE_COMMENT){
+          console.log("Operation Write Comment")
+        }
       },
       error: () => {
-        console.log('Page USER: lOGIN FAILED!')
+        console.log('Page COMMENT-DETAIL: lOGIN FAILED!')
         this.setData({
           locationAuthType: app.data.locationAuthType
         })
@@ -123,9 +133,9 @@ Page({
   },
   // 收藏影评按钮
   onTapAddFavor(){
-
+    this.data.oprBtnType = ADD_FAVOR
     //有登录信息
-    if(this.data.userInfo){
+    if(this.data.userInfo){ 
       //已有登录信息，显示原始页面
       this.setData({
         needUserInfo: false
