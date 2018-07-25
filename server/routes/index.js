@@ -47,6 +47,9 @@ router.get('/comment',  controllers.comment.list)
 // 获取特定商品评价详情
 router.get('/comment-detail', controllers.comment.comment)
 
+// 获取特定用户对特定电影的评价
+router.get('/comment-user', validationMiddleware, controllers.comment.user)
+
 // 上传收藏评价
 router.put('/favor', validationMiddleware, controllers.favor.add)
 

@@ -38,7 +38,10 @@ var config = {
         //下载特定评论展示详情
         commentDetail: `${host}/weapp/comment-detail`,
 
-        //下载特定评论展示详情
+        //下载特定用户特定评论展示详情
+        commentUser: `${host}/weapp/comment-user`,
+
+        //上传收藏详情
         addFavor: `${host}/weapp/favor`
     }
 };

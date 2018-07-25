@@ -15,6 +15,8 @@ Page({
   data: {
     comment:{},
     movie: {},
+    commentUser: {},//该用户对该电影的评价
+
     needUserInfo: false,
     oprBtnType: UNDEFINED,
     userInfo: null,
@@ -34,6 +36,8 @@ Page({
           this.onTapAddFavor()
         } else if (this.data.oprBtnType == WRITE_COMMENT){
           console.log("Operation Write Comment")
+          this.onTapWriteComment()
+
         }
       },
       error: () => {
@@ -43,6 +47,29 @@ Page({
         })
       }
     })
+  },
+  /***
+   * 获取该用户对该电影的评论
+   * 登陆之后调用 
+   */
+  getUserComment({movie_id, cb}){
+    qcloud.request({
+      url: config.service.commentUser,
+      login: true,
+      data: { movie_id: movie_id},
+      success: (result) => {
+        wx.hideLoading()
+        if (!result.data.code) {
+          cb & cb(result.data.data)
+        }
+        else {
+          console.log('error!' + result);
+        }
+      },
+      fail: result => {
+        console.log('error!' + result);
+      }
+    });
   },
   /**
  * 获取电影数据
@@ -114,7 +141,33 @@ Page({
       }
     });
   },
+  onTapWriteComment(){
+    this.data.oprBtnType = WRITE_COMMENT
+    if (this.data.userInfo) {
+      //已有登录信息，显示原始页面
+      //获取该用户对该电影的评价信息
+      this.getUserComment({
+        movie_id: this.data.movie.id,
+        cb : res=>{
+          console.log(res)
+          if(res)//有评论 跳转到该评论的影评详情页面
+          {
+            wx.navigateTo({
+              url: `../comment-detail/comment-detail?id=${res.id}`,
+            })
+          }else{//无评论 弹出底部菜单，添加影评，跳转到影评编辑页面
+            this.showActionSheet()
+          }
+        }
+      })
 
+    }else{
+      //没有登录信息，显示登录授权页面
+      this.setData({
+        needUserInfo: true
+      })
+    }
+  },
   // 底部弹出按钮菜单
   showActionSheet() {
     let movieID = this.data.movie.id
@@ -133,7 +186,7 @@ Page({
   },
   // 收藏影评按钮
   onTapAddFavor(){
-    this.data.oprBtnType = ADD_FAVOR
+    this.data.oprBtnType = WRITE_COMMENT
     //有登录信息
     if(this.data.userInfo){ 
       //已有登录信息，显示原始页面
@@ -206,7 +259,7 @@ Page({
         this.setData({
           userInfo
         })
-        console.log('Page USER: In Session.')
+        console.log('Page Comment-detail: In Session.')
       }
     })
   },

@@ -26,7 +26,7 @@
         <image class='btn-image' src='../../images/favor.png'></image>
         <view class='btn-text'>收藏影评</view>
       </view>
-      <view class='btn-meta' bindtap='showActionSheet'>
+      <view class='btn-meta' bindtap='onTapWriteComment'>
         <image class='btn-image' src='../../images/write.png'></image>
         <view class='btn-text'>写影评</view>
       </view>
@@ -49,6 +49,6 @@
   
   <!--有用户登录信息-->
   <view wx:if='{{userInfo}}'>
-    <view>have userInfo</view>
+    <!-- <view>have userInfo</view> -->
   </view>
 </view>

@@ -40,6 +40,17 @@ module.exports = {
     } else {
       ctx.state.data = {}
     }
+  },
+
+  user: async ctx => {
+    let movieID = +ctx.request.query.movie_id
+    let user = ctx.state.$wxInfo.userinfo.openId
+    if (!isNaN(movieID)) {
+      ctx.state.data = (await DB.query('SELECT * FROM comment_movie where comment_movie.movie_id = ? AND comment_movie.user = ?', [movieID, user]))[0]
+    } else {
+      ctx.state.data = {}
+    }
+
   }
 
 }
