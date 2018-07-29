@@ -42,7 +42,10 @@ var config = {
         commentUser: `${host}/weapp/comment-user`,
 
         //上传收藏详情
-        addFavor: `${host}/weapp/favor`
+        addFavor: `${host}/weapp/favor`,
+
+        //获取用户页面 我收藏的 以及 我发布的
+        userInterestLists: `${host}/weapp/user-interest`
     }
 };
 

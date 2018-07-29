@@ -9,5 +9,35 @@
 </view>
 
 <view wx:if='{{userInfo}}'>
-  <view class='title'>收藏的影评</view>
+  <scroll-view class='user-wrap'  scroll-y scroll-with-animation enable-back-to-top>
+    <view class='title'>收藏的影评</view>
+    <navigator class='comments-card' wx:for='{{favorList}}' url='../comment-detail/comment-detail?id={{item.comment_id}}'>
+      <image class='image' src='{{item.image}}' mode='aspectFit'></image>
+      <view class='detail'>
+        <view class='movie-title'>{{item.title}}</view>
+        <view class='content'>{{item.content}}</view>
+        <view class='user-info'>
+          <image class='avatar' src='{{item.avatar}}'></image>
+          <view class='username'>{{item.username}}</view>
+        </view>
+      </view>
+    </navigator>
+
+
+    <view class='title'>发布的影评</view>
+    <navigator class='comments-card' wx:for='{{myCommentList}}' url='../comment-detail/comment-detail?id={{item.comment_id}}'>
+      <image class='image' src='{{item.image}}' mode='aspectFit'></image>
+      <view class='detail'>
+        <view class='movie-title'>{{item.title}}</view>
+        <view class='content'>{{item.content}}</view>
+      </view>
+    </navigator>
+  </scroll-view>
+
+  <navigator class='btn-bottom' url='../index/index'>回到首页</navigator>
 </view>
+
+
+
+
+

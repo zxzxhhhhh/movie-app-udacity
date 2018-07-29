@@ -53,4 +53,7 @@ router.get('/comment-user', validationMiddleware, controllers.comment.user)
 // 上传收藏评价
 router.put('/favor', validationMiddleware, controllers.favor.add)
 
+// 获取我的收藏 我的发布
+router.get('/user-interest', validationMiddleware, controllers.favor.list)
+
 module.exports = router
