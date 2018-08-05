@@ -2,9 +2,52 @@
 	"miniprogramRoot": "./client",
 	"qcloudRoot": "./server",
 	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
 		"newFeature": true
 	},
 	"appid": "wx2dddb2d692b6e711",
 	"projectname": "movies-app",
-	"condition": {}
+	"libVersion": "2.2.2",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 2,
+			"list": [
+				{
+					"id": -1,
+					"name": "hots",
+					"pathName": "pages/hots/hots",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "movie detail",
+					"pathName": "pages/movie-detail/movie-detail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "comment list",
+					"pathName": "pages/comments-list/comments-list"
+				}
+			]
+		}
+	}
 }
