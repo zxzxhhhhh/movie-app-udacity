@@ -28,9 +28,9 @@ Page({
     })
   },
 
+
   /*** 输入的录音评论*/
   onRecord(){
-
     const recorderManager = wx.getRecorderManager()
     // 录音时长1min 
     const options = {
@@ -47,30 +47,96 @@ Page({
     else
       recorderManager.stop()
 
-
     recorderManager.onStart(() => {
       console.log('recorder start')
     })
     recorderManager.onStop((res) => {
       console.log('recorder stop', res)
       const { tempFilePath } = res
+      this.setData({
+        commentVoice : tempFilePath
+      })
+    })
 
-      this.innerAudioContext.src = tempFilePath
-      this.innerAudioContext.play()
-    })
-    recorderManager.onFrameRecorded((res) => {
-      const { frameBuffer } = res
-      console.log('frameBuffer.byteLength', frameBuffer.byteLength)
-    })
-    
     this.setData({
       recordStatus: ~this.data.recordStatus
     })
 
   },
-  /** 上传评论信息 */
-  addComment() {
+  /**播放预览录音 */
+  onRecordPreview(){
+    console.log(this.data.commentVoice)
+    this.innerAudioContext.src = this.data.commentVoice
+    this.innerAudioContext.play()
+  },
+  uploadVoice(cb){
+    console.log('上传录音文件')
+    console.log(this.data.commentVoice)
+    wx.uploadFile({
+      url: config.service.uploadUrl, //仅为示例，非真实的接口地址
+      filePath: this.data.commentVoice,
+      name: 'file',
+      formData: {
+        'user': 'test'
+      },
+      success: function (res) {
+        var data = JSON.parse(res.data)
+        //do something
+        if (!data.code) {
+          console.log("上传成功,并返回了COS链接")
+          var url = data.data.imgUrl
+          console.log(url)
+          cb && cb(url)
+        }
+      }
+    })
+  },
+  /** 上传语音评论信息 */
+  onTapAddComment() {
+    let commentVoice = this.data.commentVoice
+    if (!commentVoice)
+      return
+    wx.showLoading({
+      title: '评论上传中。。。',
+    })
+    this.uploadVoice(images => {
+      qcloud.request({
+        url: config.service.addComment,
+        login: true,
+        method: 'PUT',
+        data: {
+          movie_id: this.data.movie.id,
+          voices: commentVoice
+        },
+        success: (result) => {
+          wx.hideLoading()
+          if (!result.data.code) {
+            wx.showToast({
+              title: '评论成功',
+            })
+            //  评论成功后跳转到影评列表页面
+            wx.navigateTo({
+              url: `../comments-list/comments-list?id=${this.data.movie.id}`,
+            })
+          }
+          else {
+            wx.showToast({
+              icon: 'none',
+              title: '评论失败',
+            })
+          }
 
+        },
+        fail: result => {
+          wx.hideLoading()
+          wx.showToast({
+            icon: 'none',
+            title: '评论失败了',
+          })
+          console.log('error!' + result);
+        }
+      });
+    })
 
   },
   /**

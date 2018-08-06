@@ -17,13 +17,20 @@
 
     <textarea class='comment-ipt' placeholder-class='comment-placeholder' placeholder='输入你的影评内容...' auto-focus maxlength='255' bindinput='onInput' wx:if='{{commentType==0}}'></textarea>
 
-    <view class='btn-meta' wx:if='{{commentType==1}}' bindtap='onRecord' bind>
-      <image class='btn-image' src='../../images/record.png'></image>
-      <view class='btn-text' wx:if='{{recordStatus==false}}'>录音</view>
-      <view class='btn-text' wx:if='{{recordStatus}}'>停止</view>
+    <view wx:if='{{commentType==1}}' >
+      <view class='btn-meta' bindtap='onRecord'>
+        <image class='btn-image' src='../../images/record.png'></image>
+        <view class='btn-text' wx:if='{{recordStatus==false}}'>录音</view>
+        <view class='btn-text' wx:if='{{recordStatus}}'>停止</view>
+      </view>
+      <view class='btn-meta' bindtap='onRecordPreview'>
+        <image class='btn-image' src='../../images/play.png'></image>
+        <view class='btn-text'>试听</view>
+      </view>
     </view>
-
   </view>
 
-  <navigator class='btn-bottom' url="../comment-preview/comment-preview?movie_id={{movie.id}}&movie_image={{movie.image}}&movie_title={{movie.title}}&commentText={{commentText}}&user_avatar={{userInfo.avatarUrl}}&username={{userInfo.nickName}}">完成</navigator>
+  <navigator class='btn-bottom' url="../comment-preview/comment-preview?movie_id={{movie.id}}&movie_image={{movie.image}}&movie_title={{movie.title}}&commentText={{commentText}}&user_avatar={{userInfo.avatarUrl}}&username={{userInfo.nickName}}" wx:if='{{commentType==0}}' >完成</navigator>
+
+  <view class='btn-bottom' bindtap='onTapAddComment' wx:if='{{commentType==1}}'>发布影评</view>
 </view>

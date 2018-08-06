@@ -53,7 +53,7 @@ Page{
   height: 70rpx;
   width: 220rpx;
   /**父控件中水平居中显示*/
-  margin: 100rpx auto 0;
+  margin: 40rpx auto 0;
 }
 .btn-image{
   width: 40rpx;
