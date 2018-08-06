@@ -20,7 +20,10 @@ Page({
     needUserInfo: false,
     oprBtnType: UNDEFINED,
     userInfo: null,
-    locationAuthType: app.data.locationAuthType
+    locationAuthType: app.data.locationAuthType,
+
+    playing: false, //录音影评是否为播放状态
+    audioLength: 15 //录音影评长度
   },
 
   onTapLogin(res) {
@@ -123,6 +126,16 @@ Page({
           this.setData({
               comment: result.data.data
           })
+          // 如果有音频 获取音频长度并显示
+          let comment = this.data.comment
+          if (comment.voices) {
+            this.innerAudioContext.src = comment.voices
+            console.log(this.innerAudioContext.duration)
+            this.setData({
+              audioLength: this.innerAudioContext.duration
+            })
+          }
+          
           this.getMovie(this.data.comment.movie_id)
         }
         else {
@@ -235,11 +248,53 @@ Page({
     }
   },
   /**
+  * 点击播放按钮： 播放或停止播放音频
+  */
+  onTapPlay() {
+    let comment = this.data.comment
+    if (comment.voices) {
+      // 获取音频长度并显示
+      this.innerAudioContext.src = comment.voices
+      console.log(this.innerAudioContext.duration)
+      this.setData({
+        audioLength: this.innerAudioContext.duration
+      })
+      // 切换播放状态
+      if (!this.data.playing)//没有播放
+        this.innerAudioContext.play()
+      else
+        this.innerAudioContext.stop();
+
+      this.innerAudioContext.onPlay(() => {
+        console.log("播放");
+        this.setData({
+          playing: true
+        })
+      })
+      this.innerAudioContext.onStop(() => {
+        console.log("停止");
+        this.setData({
+          playing: false
+        })
+      })
+      this.innerAudioContext.onEnded(() => {
+        console.log("自然停止");
+        this.setData({
+          playing: false
+        })
+      })
+    }
+
+  },
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let commentID = options.id 
     this.getComment(commentID)
+
+    // 这里为什么放到函数onTapPlay中是不行的（if中可以调用，else中不行）
+    this.innerAudioContext = wx.createInnerAudioContext()
   },
 
   /**

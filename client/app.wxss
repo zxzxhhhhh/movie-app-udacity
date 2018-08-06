@@ -32,3 +32,40 @@
   background-color: #F5E069;
   font-weight: bold;
 }
+
+/* 以下是音频显示部分 */
+.voices{
+  position: relative;
+  width: 200rpx;
+  height: 50rpx;
+  background: lightgray;
+  margin-left:30rpx;
+
+  border-radius: 13rpx;
+
+  display: flex;
+  align-items: center;
+}
+.play-status{
+  position: absolute;
+  left: 30rpx;
+  top: 5rpx;
+  
+  background: white;
+  border-radius: 50%;
+  width: 40rpx;
+  height: 40rpx;
+
+  text-align: center;
+  font-size: 40rpx;
+  line-height: 40rpx;
+  justify-self: center;
+  align-self: center;
+}
+.audio-length{
+  position: absolute;
+  left: 80rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+/* 以上是音频显示部分 */
