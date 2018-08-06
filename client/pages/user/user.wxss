@@ -23,11 +23,14 @@ Page{
 .image{
   width: 200rpx;
   height: 250rpx;
+  flex-shrink: 0;
 }
 
 .detail{
+  flex-shrink: 0;
   margin-left: 30rpx;
   height: 100%;
+  width: 500rpx;
   justify-content: space-around;
   display: flex;
   flex-direction: column;
@@ -40,6 +43,10 @@ Page{
 .content{
   font-size: 28rpx;
   line-height: 40rpx;
+  /** 文字强制只显示1行，多余的用...表示*/
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 .user-info{
   display: flex;
@@ -75,4 +82,9 @@ Page{
   position: absolute;
   top: 0;
   bottom: 110rpx;
+}
+
+/* 以下是音频显示部分 */
+.voices{
+  margin-left:0rpx;
 }

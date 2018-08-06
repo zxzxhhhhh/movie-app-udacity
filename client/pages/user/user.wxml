@@ -15,7 +15,13 @@
       <image class='image' src='{{item.image}}' mode='aspectFit'></image>
       <view class='detail'>
         <view class='movie-title'>{{item.title}}</view>
-        <view class='content'>{{item.content}}</view>
+        <!-- 如果内容为文字 -->
+        <view class='content' wx:if='{{item.content}}'>{{item.content}}</view>
+        <!-- 如果内容为音频 -->
+        <view class='voices' wx:if='{{item.voices}}'>
+          <image class='play-status' src='../../images/play.png'></image>
+          <view class='audio-length'>{{audioLength}}s</view>
+        </view>
         <view class='user-info'>
           <image class='avatar' src='{{item.avatar}}'></image>
           <view class='username'>{{item.username}}</view>
@@ -29,7 +35,13 @@
       <image class='image' src='{{item.image}}' mode='aspectFit'></image>
       <view class='detail'>
         <view class='movie-title'>{{item.title}}</view>
-        <view class='content'>{{item.content}}</view>
+        <!-- 如果内容为文字 -->
+        <view class='content' wx:if='{{item.content}}'>{{item.content}}</view>
+        <!-- 如果内容为音频 -->
+        <view class='voices' wx:if='{{item.voices}}'>
+          <image class='play-status' src='../../images/play.png'></image>
+          <view class='audio-length'>{{audioLength}}s</view>
+        </view>
       </view>
     </navigator>
   </scroll-view>
