@@ -37,38 +37,6 @@ Page{
   white-space:nowrap;
   text-overflow:ellipsis;
 }
-.voices{
-  position: relative;
-  width: 300rpx;
-  height: 50rpx;
-  background: lightgray;
-  margin-left:30rpx;
-
-  display: flex;
-  align-items: center;
-}
-.play-status{
-  position: absolute;
-  left: 30rpx;
-  top: 5rpx;
-  
-  background: white;
-  border-radius: 50%;
-  width: 40rpx;
-  height: 40rpx;
-
-  text-align: center;
-  font-size: 40rpx;
-  line-height: 40rpx;
-  justify-self: center;
-  align-self: center;
-}
-.audio-length{
-  position: absolute;
-  left: 80rpx;
-  font-size: 28rpx;
-  line-height: 40rpx;
-}
 .btn-bottom{
   width: 750rpx;
   height: 100rpx;

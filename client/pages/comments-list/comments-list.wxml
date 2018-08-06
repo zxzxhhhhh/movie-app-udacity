@@ -5,10 +5,11 @@
     <image class='avatar' src='{{item.avatar}}' mode='aspectFit'></image>
     <view class='username'>{{item.username}}</view>
   </view>
+  <!-- 如果内容是文字 -->
   <view class='content' wx:if='{{item.content}}'>{{item.content}}</view>
-  <view class='voices' wx:if='{{item.voices}}' catchtap='onTapPlay' data-id='{{item.id}}'>
-    <view class='play-status' wx:if='{{playStatus==0}}'>▶</view>
-    <view class='play-status' wx:if='{{playStatus==1}}'>■</view>
+  <!-- 如果内容是音频 -->
+  <view class='voices' wx:if='{{item.voices}}'>
+    <image class='play-status'  src='../../images/play.png'></image>
     <view class='audio-length'>{{audioLength}}s</view>
   </view>
 </navigator>

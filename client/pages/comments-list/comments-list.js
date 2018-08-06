@@ -2,8 +2,6 @@
 const config = require('../../config.js')
 const qcloud = require('../../vendor/wafer2-client-sdk/index.js');
 const _ = require('../../utils/util.js')
-const STOP = 0
-const PLAY = 1
 Page({
 
   /**
@@ -11,7 +9,6 @@ Page({
    */
   data: {
     commentList: [],
-    playStatus: STOP,
     audioLength:15
   },
   //获取评论详情
@@ -63,98 +60,66 @@ Page({
     let movieID = options.id
     this.getCommentList(movieID)
     //
-    // 这里为什么放到函数onTapPlay中是不行的（if中可以调用，else中不行）
-    this.innerAudioContext = wx.createInnerAudioContext()
+    // // 这里为什么放到函数onTapPlay中是不行的（if中可以调用，else中不行）
+    // this.innerAudioContext = wx.createInnerAudioContext()
   },
+  // /**
+  //  * 点击播放按钮： 播放或停止播放音频
+  //  */
+  // onTapPlay(event){
+  //   let commentID = event.currentTarget.dataset.id
+  //   let commentList = this.data.commentList
+  //   let comment
 
-  onTapPlay(event){
-    let commentID = event.currentTarget.dataset.id
-    let commentList = this.data.commentList
-    let comment
-
-    //遍历找到该条评论 定位其声音链接
-    for (let i = 0; i < commentList.length; i++){
-      if(commentList[i].id == commentID)
-      {
-        comment = commentList[i]
-        break
-      }
-    }
+  //   //遍历找到该条评论 定位其声音链接
+  //   for (let i = 0; i < commentList.length; i++){
+  //     if(commentList[i].id == commentID)
+  //     {
+  //       comment = commentList[i]
+  //       break
+  //     }
+  //   }
     
-    if (comment.voices){
-      this.innerAudioContext.src = comment.voices
-      console.log(this.innerAudioContext.duration)
-      this.setData({
-        audioLength: this.innerAudioContext.duration
-      })
+  //   if (comment.voices){
+  //     // 获取音频长度并显示
+  //     this.innerAudioContext.src = comment.voices
+  //     console.log(this.innerAudioContext.duration)
+  //     this.setData({
+  //       audioLength: this.innerAudioContext.duration
+  //     })
+  //     // 切换播放状态
+  //     if (!this.data.playing)//没有播放
+  //       this.innerAudioContext.play()
+  //     else
+  //       this.innerAudioContext.stop();
 
-      if (this.data.playStatus == 0)//没有播放
-      {
-        this.innerAudioContext.play()
-        this.innerAudioContext.onPlay(() => {
-          console.log("播放");
-          this.setData({
-            playStatus: PLAY
-          })
-        })
-      } else {
-        this.innerAudioContext.stop();
-        this.innerAudioContext.onStop(() => {
-          console.log("停止");
-          this.setData({
-            playStatus: STOP
-          })
-        })
-      }
-    }
+  //     this.innerAudioContext.onPlay(() => {
+  //       console.log("播放");
+  //       this.setData({
+  //         playing: true
+  //       })
+  //     })
+  //     this.innerAudioContext.onStop(() => {
+  //       console.log("停止");
+  //       this.setData({
+  //         playing: false
+  //       })
+  //     })
+  //     this.innerAudioContext.onEnded(() => {
+  //       console.log("自然停止");
+  //       this.setData({
+  //         playing: false
+  //       })
+  //     })
+  //   }
 
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
+  // },
+  // /**
+  //  * 生命周期函数--监听页面卸载
+  //  */
+  // onUnload: function () {
+  //   this.innerAudioContext.stop();
+  //   console.log("onUnload: Stop Playing!")
+  // },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    this.innerAudioContext.stop();
-    console.log("onUnload: Stop Playing!")
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })
