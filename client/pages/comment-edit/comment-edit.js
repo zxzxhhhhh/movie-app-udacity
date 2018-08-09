@@ -168,40 +168,6 @@ Page({
     })
 
   },
-  /**
-   * 获取电影数据
-   */
-  getMovie(movieID) {
-    wx.showLoading({
-      title: '电影数据加载中',
-    })
-    qcloud.request({
-      url: config.service.movieDetail + movieID,
-      success: (result) => {
-        wx.hideLoading()
-        if (!result.data.code) {
-          this.setData({
-            movie: result.data.data
-          })
-        }
-        else {
-          wx.showToast({
-            icon: 'none',
-            title: '加载失败',
-          })
-        }
-
-      },
-      fail: result => {
-        wx.hideLoading()
-        wx.showToast({
-          icon: 'none',
-          title: '加载失败',
-        })
-        console.log('error!' + result);
-      }
-    });
-  },
 
   onTapLogin(res) {
     app.login({
@@ -229,8 +195,14 @@ Page({
       commentType
     })
 
-    let movieID = options.movieID
-    this.getMovie(movieID)
+    app.getMovie({
+      movieID: options.movieID,
+      cb: res=>{
+        this.setData({
+          movie: res
+        })
+      }
+    })
 
     // 这里为什么放到函数onTapPlay中是不行的（if中可以调用，else中不行）
     this.innerAudioContext = wx.createInnerAudioContext()

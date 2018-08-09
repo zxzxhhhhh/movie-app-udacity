@@ -121,4 +121,72 @@ App({
       })
 
     },
+  /**
+ * 随即获取一个电影数据 已知总数为15个
+ */
+  getMovie({ movieID, cb }) {
+    wx.showLoading({
+      title: '电影数据加载中',
+    })
+    qcloud.request({
+      url: config.service.movieDetail + movieID,
+      success: (result) => {
+        wx.hideLoading()
+        if (!result.data.code) {
+          cb & cb(result.data.data)
+
+        }
+        else {
+          wx.showToast({
+            icon: 'none',
+            title: '加载失败',
+          })
+        }
+
+      },
+      fail: result => {
+        wx.hideLoading()
+        wx.showToast({
+          icon: 'none',
+          title: '加载失败',
+        })
+        console.log('error!' + result);
+      }
+    });
+
+  },
+  //获取评论详情
+  getCommentList({id, cb}) {
+    wx.showLoading({
+      title: '评论数据加载中',
+    })
+    qcloud.request({
+      url: config.service.comment,
+      method: 'GET',
+      data: {
+        movie_id: id
+      },
+      success: (result) => {
+        wx.hideLoading()
+        if (!result.data.code) {
+          cb & cb(result.data.data)
+        }
+        else {
+          wx.showToast({
+            icon: 'none',
+            title: '加载失败',
+          })
+        }
+
+      },
+      fail: result => {
+        wx.hideLoading()
+        wx.showToast({
+          icon: 'none',
+          title: '加载失败',
+        })
+        console.log('error!' + result);
+      }
+    });
+  },
 })

@@ -73,40 +73,6 @@ Page({
       }
     });
   },
-  /**
- * 获取电影数据
- */
-  getMovie(movieID) {
-    wx.showLoading({
-      title: '电影数据加载中',
-    })
-    qcloud.request({
-      url: config.service.movieDetail + movieID,
-      success: (result) => {
-        wx.hideLoading()
-        if (!result.data.code) {
-          this.setData({
-            movie: result.data.data
-          })
-        }
-        else {
-          wx.showToast({
-            icon: 'none',
-            title: '加载失败',
-          })
-        }
-
-      },
-      fail: result => {
-        wx.hideLoading()
-        wx.showToast({
-          icon: 'none',
-          title: '加载失败',
-        })
-        console.log('error!' + result);
-      }
-    });
-  },
   // get the specific comment
   getComment(id){
     wx.showLoading({
@@ -126,7 +92,14 @@ Page({
               comment: result.data.data
           })
           
-          this.getMovie(this.data.comment.movie_id)
+          app.getMovie({
+            movieID: this.data.comment.movie_id,
+            cb: (res)=>{
+              this.setData({
+                movie: res
+              })
+            }
+          })
         }
         else {
           wx.showToast({
