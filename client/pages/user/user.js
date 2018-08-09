@@ -14,8 +14,6 @@ Page({
 
     favorList: [],
     myCommentList: [],
-
-    audioLength: 15 //录音影评长度
   },
   /***
    * 同时获取favorList myCommentList

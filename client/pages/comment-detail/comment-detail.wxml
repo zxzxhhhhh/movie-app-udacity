@@ -22,7 +22,7 @@
         <view class='voices' wx:if='{{comment.voices}}' catchtap='onTapPlay'>
           <image class='play-status' wx:if='{{playing==false}}' src='../../images/play.png'></image>
           <image class='play-status' wx:if='{{playing}}' src='../../images/stop.png'></image>
-          <view class='audio-length'>{{audioLength}}s</view>
+          <view class='audio-length'>{{comment.voice_length}}s</view>
         </view>
       </view>
     </view>

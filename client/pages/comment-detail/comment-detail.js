@@ -23,7 +23,6 @@ Page({
     locationAuthType: app.data.locationAuthType,
 
     playing: false, //录音影评是否为播放状态
-    audioLength: 15 //录音影评长度
   },
 
   onTapLogin(res) {
@@ -126,15 +125,6 @@ Page({
           this.setData({
               comment: result.data.data
           })
-          // 如果有音频 获取音频长度并显示
-          let comment = this.data.comment
-          if (comment.voices) {
-            this.innerAudioContext.src = comment.voices
-            console.log(this.innerAudioContext.duration)
-            this.setData({
-              audioLength: this.innerAudioContext.duration
-            })
-          }
           
           this.getMovie(this.data.comment.movie_id)
         }
@@ -253,12 +243,7 @@ Page({
   onTapPlay() {
     let comment = this.data.comment
     if (comment.voices) {
-      // 获取音频长度并显示
       this.innerAudioContext.src = comment.voices
-      console.log(this.innerAudioContext.duration)
-      this.setData({
-        audioLength: this.innerAudioContext.duration
-      })
       // 切换播放状态
       if (!this.data.playing)//没有播放
         this.innerAudioContext.play()

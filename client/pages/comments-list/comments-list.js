@@ -9,7 +9,6 @@ Page({
    */
   data: {
     commentList: [],
-    audioLength:15
   },
   //获取评论详情
   getCommentList(id) {

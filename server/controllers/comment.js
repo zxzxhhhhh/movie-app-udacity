@@ -10,9 +10,14 @@ module.exports = {
     let movieID = +ctx.request.body.movie_id
     let content = ctx.request.body.content || null
     let voices = ctx.request.body.voices || null
+    let voiceLength = + ctx.request.body.voice_length || null
 
     if (!isNaN(movieID)) {
-      await DB.query('INSERT INTO comment_movie(user, username, avatar, content,  voices, movie_id) VALUES (?, ?, ?, ?, ?, ?)', [user, username, avatar, content, voices, movieID])
+      try{
+        await DB.query('INSERT INTO comment_movie(user, username, avatar, content,  voices, voice_length,movie_id) VALUES (?, ?, ?, ?, ?, ?, ?)', [user, username, avatar, content, voices, voiceLength, movieID])
+      }catch(e){
+        ctx.state.data = e
+      }
     }
     // voices内容没有 会出现sql语句中两个连着的逗号??现在又不出现了
     // if (!isNaN(movieID)) {

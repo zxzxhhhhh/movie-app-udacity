@@ -93,3 +93,9 @@ ALTER TABLE `favorites`
 ALTER TABLE `favorites`
   ADD CONSTRAINT `favorites_link` FOREIGN KEY (`comment_id`) REFERENCES `comment_movie` (`id`);
 
+--
+-- 修改表 `comment_movie`
+--
+ALTER TABLE `comment_movie` 
+	ADD column voice_length int(11) DEFAULT null after voices;
+

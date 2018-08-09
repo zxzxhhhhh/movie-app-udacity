@@ -18,7 +18,8 @@ Page({
     // recordStatus: 区分正在录音还是未在录音
     recordStatus: false,
     commentText:'',
-    commentVoice:''
+    commentVoice:'',
+    voiceLength: 0
   },
 
   /***输入的文字评论 */
@@ -54,7 +55,8 @@ Page({
       console.log('recorder stop', res)
       const { tempFilePath } = res
       this.setData({
-        commentVoice : tempFilePath
+        commentVoice : tempFilePath,
+        voiceLength: Math.round(res.duration/1000)
       })
     })
 
@@ -65,7 +67,7 @@ Page({
   },
   /**播放预览录音 */
   onRecordPreview(){
-    console.log(this.data.commentVoice)
+    //console.log(this.data.commentVoice)
     this.innerAudioContext.src = this.data.commentVoice
     this.innerAudioContext.play()
   },
@@ -99,14 +101,17 @@ Page({
     wx.showLoading({
       title: '评论上传中。。。',
     })
-    this.uploadVoice(images => {
+    this.uploadVoice(voiceUrl => {
+      console.log(voiceUrl)
+      console.log(this.data.voiceLength)
       qcloud.request({
         url: config.service.addComment,
         login: true,
         method: 'PUT',
         data: {
           movie_id: this.data.movie.id,
-          voices: commentVoice
+          voices: voiceUrl,
+          voice_length: this.data.voiceLength
         },
         success: (result) => {
           wx.hideLoading()
