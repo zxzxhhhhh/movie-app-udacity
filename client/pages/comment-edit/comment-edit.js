@@ -19,7 +19,8 @@ Page({
     recordStatus: false,
     commentText:'',
     commentVoice:'',
-    voiceLength: 0
+    voiceLength: 0,
+    playing: false // 试听声音的状态标志
   },
 
   /***输入的文字评论 */
@@ -69,7 +70,30 @@ Page({
   onRecordPreview(){
     //console.log(this.data.commentVoice)
     this.innerAudioContext.src = this.data.commentVoice
-    this.innerAudioContext.play()
+    // 切换播放状态
+    if (!this.data.playing)//没有播放
+      this.innerAudioContext.play()
+    else
+      this.innerAudioContext.stop();
+
+    this.innerAudioContext.onPlay(() => {
+      console.log("播放");
+      this.setData({
+        playing: true
+      })
+    })
+    this.innerAudioContext.onStop(() => {
+      console.log("停止");
+      this.setData({
+        playing: false
+      })
+    })
+    this.innerAudioContext.onEnded(() => {
+      console.log("自然停止");
+      this.setData({
+        playing: false
+      })
+    })
   },
   uploadVoice(cb){
     console.log('上传录音文件')
@@ -224,5 +248,13 @@ Page({
         console.log('Page COMMENT-EDIT: In Session.')
       }
     })
+  },
+
+    /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    this.innerAudioContext.stop();
+    console.log("onUnload: Stop Playing!")
   }
 })

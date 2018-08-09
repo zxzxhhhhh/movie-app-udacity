@@ -24,7 +24,8 @@
         <view class='btn-text' wx:if='{{recordStatus}}'>停止</view>
       </view>
       <view class='btn-meta' bindtap='onRecordPreview'>
-        <image class='btn-image' src='../../images/play.png'></image>
+        <image class='btn-image' wx:if='{{playing==false}}' src='../../images/play.png'></image>
+        <image class='btn-image' wx:if='{{playing}}' src='../../images/stop.png'></image>
         <view class='btn-text'>试听</view>
       </view>
     </view>
