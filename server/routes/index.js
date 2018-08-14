@@ -56,4 +56,8 @@ router.put('/favor', validationMiddleware, controllers.favor.add)
 // 获取我的收藏 我的发布
 router.get('/user-interest', validationMiddleware, controllers.favor.list)
 
+// 获取某条影评是否被收藏的信息
+router.get('/isfavorite', validationMiddleware, controllers.favor.isfavorite)
+
+
 module.exports = router

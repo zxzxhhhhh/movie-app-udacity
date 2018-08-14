@@ -31,7 +31,8 @@
     <view class='btn-bottom'>
       <view class='btn-meta' bindtap='onTapAddFavor'>
         <image class='btn-image' src='../../images/favor.png'></image>
-        <view class='btn-text'>收藏影评</view>
+        <view class='btn-text' wx:if='{{!isFavorite}}'>收藏影评</view>
+        <view class='btn-text' wx:if='{{isFavorite}}'>取消收藏</view>
       </view>
       <view class='btn-meta' bindtap='onTapWriteComment'>
         <image class='btn-image' src='../../images/write.png'></image>

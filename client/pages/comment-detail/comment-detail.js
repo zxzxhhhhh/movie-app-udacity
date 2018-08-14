@@ -23,6 +23,8 @@ Page({
     locationAuthType: app.data.locationAuthType,
 
     playing: false, //录音影评是否为播放状态
+
+    isFavorite: false
   },
 
   onTapLogin(res) {
@@ -117,6 +119,48 @@ Page({
       }
     });
   },
+
+  //判断该影评是否已经被收藏
+  isFavorite(id){
+    wx.showLoading({
+      title: '正在查询是否收藏本影评。。',
+    })
+    qcloud.request({
+      url: config.service.isFavorite,
+      method: 'GET',
+      data: {
+        comment_id: id
+      },
+      success: (result) => {
+        wx.hideLoading()
+        console.log(result)
+        if (!result.data.code) {
+          if (result.data.data.length)
+            this.setData({
+              isFavorite: true
+            })
+          else
+            this.setData({
+              isFavorite: false
+            })
+        }
+        else {
+          wx.showToast({
+            title: '查询失败',
+          })
+        }
+
+      },
+      fail: result => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '查询失败',
+        })
+        console.log('error!');
+      }
+    });
+
+  },
   onTapWriteComment(){
     this.data.oprBtnType = WRITE_COMMENT
     if (this.data.userInfo) {
@@ -169,6 +213,7 @@ Page({
       this.setData({
         needUserInfo: false
       })
+
       wx.showLoading({
         title: '添加收藏中。。。',
       })
@@ -178,18 +223,26 @@ Page({
         method: 'PUT',
         data: {
           comment_id: this.data.comment.id,
+          isfavorite: this.data.isFavorite//已经收藏 正在取消收藏;未收藏，添加收藏
         },
         success: (result) => {
           wx.hideLoading()
           if (!result.data.code) {
-            wx.showToast({
-              title: '收藏成功',
-            })
+            if(this.data.isFavorite)
+              wx.showToast({
+                title: '取消收藏',
+              })
+            else
+              wx.showToast({
+                title: '收藏成功',
+              })
+            this.isFavorite(this.data.comment.id)
+            
           }
           else {
             wx.showToast({
               icon: 'none',
-              title: '收藏失败',
+              title: '操作失败',
             })
           }
 
@@ -198,11 +251,13 @@ Page({
           wx.hideLoading()
           wx.showToast({
             icon: 'none',
-            title: '收藏失败',
+            title: '操作失败',
           })
           console.log('error!' + result);
         }
       });
+
+
     }else{
       //没有登录信息，显示登录授权页面
       this.setData({
@@ -250,6 +305,8 @@ Page({
   onLoad: function (options) {
     let commentID = options.id 
     this.getComment(commentID)
+
+    this.isFavorite(commentID)
 
     // 这里为什么放到函数onTapPlay中是不行的（if中可以调用，else中不行）
     this.innerAudioContext = wx.createInnerAudioContext()

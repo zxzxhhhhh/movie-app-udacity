@@ -45,7 +45,10 @@ var config = {
         addFavor: `${host}/weapp/favor`,
 
         //获取用户页面 我收藏的 以及 我发布的
-        userInterestLists: `${host}/weapp/user-interest`
+        userInterestLists: `${host}/weapp/user-interest`,
+
+        //  判断某条影评是否已经被收藏
+        isFavorite: `${host}/weapp/isfavorite`
     }
 };
 
