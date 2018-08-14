@@ -13,7 +13,7 @@ Page({
   /**
    * 获取电影数据列表 已知总数为15个
    */
-  getMovie() {
+  getMovie(callback) {
     wx.showLoading({
       title: '电影数据加载中',
     })
@@ -41,6 +41,10 @@ Page({
           title: '加载失败',
         })
         console.log('error!' + result);
+      },
+      complete: () => {
+        wx.hideLoading()
+        callback && callback();
       }
     });
 
@@ -51,5 +55,14 @@ Page({
   onLoad: function (options) {
     this.getMovie()
   },
+  /**
+ * 页面相关事件处理函数--监听用户下拉动作
+ */
+  onPullDownRefresh: function () {
+    console.log("refresh executed!")
+    this.getMovie(() => {
+      wx.stopPullDownRefresh();
+    });
+  }
 
 })
