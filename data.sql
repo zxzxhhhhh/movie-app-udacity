@@ -97,5 +97,6 @@ ALTER TABLE `favorites`
 -- 修改表 `comment_movie`
 --
 ALTER TABLE `comment_movie` 
-	ADD column voice_length int(11) DEFAULT null after voices;
+	ADD column voice_length int(11) DEFAULT null after voices,
+	MODIFY `username` varchar(255) CHARACTER SET utf8 DEFAULT NULL;
 
