@@ -1,5 +1,5 @@
 <!--pages/comments-list/comments-list.wxml-->
-<navigator class='comment-card' wx:for='{{commentList}}' wx:key='*this' url='../comment-detail/comment-detail?id={{item.id}}'>
+<navigator class='comment-card' wx:for='{{commentList}}' wx:if='{{commentList}}' wx:key='*this' url='../comment-detail/comment-detail?id={{item.id}}'>
   
   <view class='user-info'>
     <image class='avatar' src='{{item.avatar}}' mode='aspectFit'></image>
@@ -15,3 +15,5 @@
 </navigator>
 
 <navigator class='btn-bottom' url='../index/index'>回到首页</navigator>
+
+<view class='no-comment' wx:if='{{commentList.length==0}}'>还没有任何影评~</view>

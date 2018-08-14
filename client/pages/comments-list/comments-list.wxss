@@ -52,3 +52,9 @@ Page{
 
   text-align: center;
 }
+.no-comment{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  text-align: center;
+  margin: 30 auto;
+}
